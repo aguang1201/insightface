@@ -42,6 +42,7 @@ import pickle
 from sklearn.decomposition import PCA
 import mxnet as mx
 from mxnet import ndarray as nd
+from src.common import face_image
 
 
 class LFold:
@@ -272,8 +273,8 @@ def test(data_set, mx_model, batch_size, nfolds=10, data_extra = None, label_sha
   embeddings = sklearn.preprocessing.normalize(embeddings)
   acc1 = 0.0
   std1 = 0.0
-  #_, _, accuracy, val, val_std, far = evaluate(embeddings, issame_list, nrof_folds=10)
-  #acc1, std1 = np.mean(accuracy), np.std(accuracy)
+  # _, _, accuracy, val, val_std, far = evaluate(embeddings, issame_list, nrof_folds=10)
+  # acc1, std1 = np.mean(accuracy), np.std(accuracy)
 
   #print('Validation rate: %2.5f+-%2.5f @ FAR=%2.5f' % (val, val_std, far))
   #embeddings = np.concatenate(embeddings_list, axis=1)
@@ -510,8 +511,9 @@ if __name__ == '__main__':
 
   parser = argparse.ArgumentParser(description='do verification')
   # general
-  parser.add_argument('--data-dir', default='', help='')
-  parser.add_argument('--model', default='../model/softmax,50', help='path to load model.')
+  parser.add_argument('--data-dir', default='/home/ys1/dataset/face_dataset/ms1m-retinaface-t1', help='')
+  # parser.add_argument('--model', default='../model/softmax,50', help='path to load model.')
+  parser.add_argument('--model', default='../../models/MobileFaceNet/model-y1-softmax, 178', help='path to load model.')
   parser.add_argument('--target', default='lfw,cfp_ff,cfp_fp,agedb_30', help='test targets.')
   parser.add_argument('--gpu', default=0, type=int, help='gpu id')
   parser.add_argument('--batch-size', default=32, type=int, help='')
@@ -520,7 +522,7 @@ if __name__ == '__main__':
   parser.add_argument('--nfolds', default=10, type=int, help='')
   args = parser.parse_args()
   sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'common'))
-  import face_image
+  # import face_image
 
   prop = face_image.load_property(args.data_dir)
   image_size = prop.image_size

@@ -165,11 +165,11 @@ def do_clean(args):
   if args.test==0:
     for _id, _label in id2label.iteritems():
       _header = mx.recordio.IRHeader(1, _label, idx, 0)
-      s = mx.recordio.pack(_header, '')
+      s = mx.recordio.pack(_header, b'')
       writer.write_idx(idx, s)
       idx+=1
     _header = mx.recordio.IRHeader(1, (id_idx, idx), 0, 0)
-    s = mx.recordio.pack(_header, '')
+    s = mx.recordio.pack(_header, b'')
     writer.write_idx(0, s)
   print(nrof_images, nrof_removed)
 

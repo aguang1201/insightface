@@ -102,7 +102,7 @@ def image_encode(args, i, item, q_out):
     else: 
       header = mx.recordio.IRHeader(item.flag, item.label, item.id, 0)
       #print('write', item.flag, item.id, item.label)
-      s = mx.recordio.pack(header, '')
+      s = mx.recordio.pack(header, b'')
       q_out.put((i, s, oitem))
 
 
@@ -149,7 +149,7 @@ def parse_args():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         description='Create an image list or \
         make a record database by reading from an image list')
-    parser.add_argument('prefix', help='prefix of input/output lst and rec files.')
+    parser.add_argument('--prefix', default='/media/ys1/YS1_Internal_Storage_4T/dataset/face_dataset/iccv19_mtcnn_112_01', help='prefix of input/output lst and rec files.')
     #parser.add_argument('root', help='path to folder containing images.')
 
     cgroup = parser.add_argument_group('Options for creating image lists')
@@ -164,7 +164,7 @@ def parse_args():
                         help='Ratio of images to use for training.')
     cgroup.add_argument('--test-ratio', type=float, default=0,
                         help='Ratio of images to use for testing.')
-    cgroup.add_argument('--recursive', type=bool, default=False,
+    cgroup.add_argument('--recursive', type=bool, default=True,
                         help='If true recursively walk through subdirs and assign an unique label\
         to images in each folder. Otherwise only include images in the root folder\
         and give them label 0.')
@@ -174,7 +174,7 @@ def parse_args():
     rgroup = parser.add_argument_group('Options for creating database')
     rgroup.add_argument('--quality', type=int, default=95,
                         help='JPEG quality for encoding, 1-100; or PNG compression for encoding, 1-9')
-    rgroup.add_argument('--num-thread', type=int, default=1,
+    rgroup.add_argument('--num-thread', type=int, default=4,
                         help='number of thread to use for encoding. order of images will be different\
         from the input list if >1. the input list will be modified to match the\
         resulting order.')

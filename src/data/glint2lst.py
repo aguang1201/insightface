@@ -3,8 +3,10 @@ import sys
 import os
 import numpy as np
 
-input_dir = sys.argv[1]
-targets = sys.argv[2]
+# input_dir = sys.argv[1]
+# targets = sys.argv[2]
+input_dir = '/media/ys1/624817064816D89D/dataset/face_dataset'
+targets = 'iccv19-challenge-data'
 targets = targets.strip().split(',')
 lmap = {}
 
